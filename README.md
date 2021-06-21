@@ -10,7 +10,7 @@
 <p align="center"> 
   <img alt="Repository Size" src="https://img.shields.io/github/repo-size/SampaioLeal/nlw-letmeask?color=3498db&style=for-the-badge">
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/SampaioLeal/nlw-letmeask?color=3498db&style=for-the-badge">
-  <a href="https://github.com/USERNAME">
+  <a href="https://github.com/SampaioLeal">
     <img alt="Created by Sampaio Leal" src="https://img.shields.io/badge/Developer-Sampaio_Leal-%3498db?color=3498db&style=for-the-badge">
   </a>
   <img alt="Project License" src="https://img.shields.io/github/license/SampaioLeal/nlw-letmeask?color=3498db&style=for-the-badge"/>
