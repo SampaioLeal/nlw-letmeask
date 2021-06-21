@@ -2,6 +2,7 @@ import { ThemeProvider, CssBaseline } from "@material-ui/core";
 import { BrowserRouter, Switch } from "react-router-dom";
 import PublicRoutes from "./routes/PublicRoutes.routes";
 import lightTheme from "./styles/themes/light";
+import "./services/firebase";
 
 function App() {
   return (
