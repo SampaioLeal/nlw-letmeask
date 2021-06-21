@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     borderBottom: "1px solid",
     borderBottomColor: "#E2E2E2",
+    marginBottom: theme.spacing(4),
   },
   closeButton: {
     marginLeft: theme.spacing(2),

@@ -20,13 +20,19 @@ const lightTheme = createMuiTheme({
       fontWeight: "bold",
       fontSize: 36,
     },
-    h3: {
-      fontSize: 24,
-    },
+
     h2: {
       fontFamily: "Poppins",
       fontWeight: "bold",
       fontSize: 24,
+    },
+    h3: {
+      fontSize: 24,
+    },
+    h4: {
+      fontFamily: "Poppins",
+      fontWeight: 600,
+      fontSize: 18,
     },
   },
   shape: {
