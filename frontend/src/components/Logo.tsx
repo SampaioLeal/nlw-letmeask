@@ -4,11 +4,11 @@ interface LogoProps {
   verticalMargin?: boolean;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   logo: (props: LogoProps) => ({
     margin: props.verticalMargin ? "32px 0" : "0",
   }),
-}));
+});
 
 export default function Logo(props: LogoProps) {
   const classes = useStyles(props);
