@@ -2,11 +2,13 @@ import { makeStyles } from "@material-ui/core";
 
 interface LogoProps {
   verticalMargin?: boolean;
+  height?: string | number;
 }
 
 const useStyles = makeStyles({
   logo: (props: LogoProps) => ({
     margin: props.verticalMargin ? "32px 0" : "0",
+    height: props.height || undefined,
   }),
 });
 
