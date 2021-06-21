@@ -23,11 +23,23 @@ const lightTheme = createMuiTheme({
     h3: {
       fontSize: 24,
     },
+    h2: {
+      fontFamily: "Poppins",
+      fontWeight: "bold",
+      fontSize: 24,
+    },
   },
   shape: {
     borderRadius: 8,
   },
   overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        body: {
+          backgroundColor: "#f8f8f8",
+        },
+      },
+    },
     MuiButton: {
       root: {
         height: 48,
