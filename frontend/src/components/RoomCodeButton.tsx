@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
-import ClipboardIcon from "./ClipboardIcon";
+import FilterNoneRoundedIcon from "@material-ui/icons/FilterNoneRounded";
 
 const useStyles = makeStyles((theme) => ({
   code: {
@@ -17,7 +17,7 @@ export default function RooomCodeButton() {
       size="small"
     >
       <Button variant="contained">
-        <ClipboardIcon />
+        <FilterNoneRoundedIcon />
       </Button>
       <Button className={classes.code}>Sala #5435464</Button>
     </ButtonGroup>

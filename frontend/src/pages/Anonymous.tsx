@@ -4,7 +4,7 @@ import { Button } from "@material-ui/core";
 import { Grid, makeStyles } from "@material-ui/core";
 import Divider from "../components/Divider";
 import GoogleIcon from "../components/GoogleIcon";
-import LoginIcon from "../components/LoginIcon";
+import QuestionAnswerRoundedIcon from "@material-ui/icons/QuestionAnswerRounded";
 import Logo from "../components/Logo";
 import RoomInput from "../components/RoomInput";
 
@@ -72,7 +72,7 @@ export default function Anonymous() {
           color="primary"
           fullWidth
         >
-          <LoginIcon />
+          <QuestionAnswerRoundedIcon />
           Entrar na sala
         </Button>
       </Grid>

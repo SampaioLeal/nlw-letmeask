@@ -1,13 +1,13 @@
 import { Button } from "@material-ui/core";
-import LoginIcon from "../components/LoginIcon";
 import GoogleIcon from "../components/GoogleIcon";
 import RoomCodeButton from "../components/RoomCodeButton";
+import QuestionAnswerRoundedIcon from "@material-ui/icons/QuestionAnswerRounded";
 
 export default function Componentes() {
   return (
     <>
       <Button variant="contained" color="primary" fullWidth>
-        <LoginIcon />
+        <QuestionAnswerRoundedIcon />
         Entrar na sala
       </Button>
       <br />
