@@ -71,6 +71,11 @@ const lightTheme = createMuiTheme({
         fontSize: 14,
       },
     },
+    MuiDialog: {
+      paper: {
+        padding: 24,
+      },
+    },
   },
 });
 
