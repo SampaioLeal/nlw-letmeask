@@ -42,7 +42,7 @@ class AuthStore {
   }
 
   listenAuthState() {
-    auth.onAuthStateChanged((user) => {
+    return auth.onAuthStateChanged((user) => {
       if (!user) {
         this.setUser(null);
         this.setLogged(false);

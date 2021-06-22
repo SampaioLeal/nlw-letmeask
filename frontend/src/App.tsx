@@ -14,7 +14,11 @@ appStore.setLoading(true);
 
 function App() {
   useEffect(() => {
-    authStore.listenAuthState();
+    const unsubscribe = authStore.listenAuthState();
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return (
