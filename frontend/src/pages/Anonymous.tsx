@@ -1,49 +1,52 @@
-import { Typography } from "@material-ui/core";
-import { Button } from "@material-ui/core";
-import { Grid } from "@material-ui/core";
+import { Grid, Box, Button } from "@material-ui/core";
+import QuestionAnswerRoundedIcon from "@material-ui/icons/QuestionAnswerRounded";
 import Divider from "../components/Divider";
 import GoogleIcon from "../components/GoogleIcon";
-import QuestionAnswerRoundedIcon from "@material-ui/icons/QuestionAnswerRounded";
 import Logo from "../components/Logo";
 import RoomInput from "../components/RoomInput";
 import useHomeStyles from "../styles/home";
+import authStore from "../stores/auth";
+import Presentation from "../components/Presentation";
 
 export default function Anonymous() {
   const classes = useHomeStyles();
 
   return (
     <Grid container spacing={0} className={classes.root}>
-      <Grid item xs={12} md={6} className={classes.presentation}>
-        <img src="/images/presentation.png" alt="Presentation" />
-        <Typography variant="h1" className={classes.title}>
-          Toda pergunta tem uma resposta.
-        </Typography>
-        <Typography variant="h3" className={classes.description}>
-          Aprenda e compartilhe conhecimento com outras pessoas.
-        </Typography>
-      </Grid>
-      <Grid xs={12} item md={6} className={classes.joinRoom}>
-        <Logo verticalMargin />
+      <Box clone order={{ xs: 2, sm: 2, md: 1 }}>
+        <Grid item xs={12} md={6} className={classes.presentation}>
+          <Presentation />
+        </Grid>
+      </Box>
 
-        <Button variant="outlined" fullWidth>
-          <GoogleIcon />
-          Entrar com o Google
-        </Button>
+      <Box clone order={{ xs: 1, sm: 1, md: 2 }}>
+        <Grid xs={12} item md={6} className={classes.joinRoom}>
+          <Logo verticalMargin />
 
-        <Divider title="ou entre em uma sala" />
+          <Button
+            onClick={authStore.signInWithGoogle}
+            variant="outlined"
+            fullWidth
+          >
+            <GoogleIcon />
+            Entrar com o Google
+          </Button>
 
-        <RoomInput placeholder="Digite o código da sala" />
+          <Divider title="ou entre em uma sala" />
 
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          fullWidth
-        >
-          <QuestionAnswerRoundedIcon />
-          Entrar na sala
-        </Button>
-      </Grid>
+          <RoomInput placeholder="Digite o código da sala" />
+
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            fullWidth
+          >
+            <QuestionAnswerRoundedIcon />
+            Entrar na sala
+          </Button>
+        </Grid>
+      </Box>
     </Grid>
   );
 }
