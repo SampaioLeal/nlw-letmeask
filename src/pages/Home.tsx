@@ -37,7 +37,7 @@ function Home() {
         const roomData = await appStore.checkRoom(room);
         history.push(`/room/${roomData.code}`);
       } catch (e) {
-        // TODO: disparar alerta
+        appStore.setNotification("A sala não existe!");
       }
     }
   }

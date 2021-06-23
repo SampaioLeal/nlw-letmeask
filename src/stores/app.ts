@@ -7,9 +7,16 @@ class AppStore {
   }
 
   loading = false;
+  notification = "";
   room: Room | null = null;
   questions: Question[] = [];
 
+  setNotification(text: string) {
+    this.notification = text;
+  }
+  closeNotification() {
+    this.notification = "";
+  }
   setLoading(bool: boolean) {
     if (bool) {
       document.body.style.overflow = "hidden";

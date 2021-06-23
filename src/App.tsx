@@ -1,4 +1,9 @@
-import { ThemeProvider, CssBaseline } from "@material-ui/core";
+import {
+  ThemeProvider,
+  CssBaseline,
+  IconButton,
+  Snackbar,
+} from "@material-ui/core";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import lightTheme from "./styles/themes/light";
 import "./services/firebase";
@@ -10,6 +15,7 @@ import appStore from "./stores/app";
 import Home from "./pages/Home";
 import Room from "./pages/Room";
 import Anonymous from "./pages/Anonymous";
+import CloseIcon from "@material-ui/icons/Close";
 
 appStore.setLoading(true);
 
@@ -38,6 +44,26 @@ function App() {
       </BrowserRouter>
 
       {appStore.loading && <Loader />}
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        open={!!appStore.notification}
+        autoHideDuration={6000}
+        onClose={appStore.closeNotification}
+        message={appStore.notification}
+        action={
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={appStore.closeNotification}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        }
+      />
     </ThemeProvider>
   );
 }
