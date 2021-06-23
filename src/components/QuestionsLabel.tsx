@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 
 interface QuestionsLabelProps {
-  title: string;
+  length: number;
 }
 
 const useStyles = makeStyles({
@@ -18,8 +18,20 @@ const useStyles = makeStyles({
   },
 });
 
-export default function QuestionsLabel({ title }: QuestionsLabelProps) {
+export default function QuestionsLabel({ length }: QuestionsLabelProps) {
   const classes = useStyles();
 
-  return <div className={classes.root}>{title}</div>;
+  let text = "perguntas";
+
+  if (!length) {
+    text = "Nadinha";
+  } else if (length === 1) {
+    text = "pergunta";
+  }
+
+  return (
+    <div className={classes.root}>
+      {length ? length : ""} {text}
+    </div>
+  );
 }

@@ -1,14 +1,15 @@
 import { ThemeProvider, CssBaseline } from "@material-ui/core";
-import { BrowserRouter, Switch } from "react-router-dom";
-import PublicRoutes from "./routes/Public.routes";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import lightTheme from "./styles/themes/light";
 import "./services/firebase";
 import authStore from "./stores/auth";
-import PrivateRoutes from "./routes/Private.routes";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import Loader from "./components/Loader";
 import appStore from "./stores/app";
+import Home from "./pages/Home";
+import Room from "./pages/Room";
+import Anonymous from "./pages/Anonymous";
 
 appStore.setLoading(true);
 
@@ -26,9 +27,13 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <Switch>
-          {authStore.logged && <PrivateRoutes />}
+          <Route path="/room/:code" component={Room} />
 
-          <PublicRoutes />
+          {authStore.logged ? (
+            <Route path="/" exact component={Home} />
+          ) : (
+            <Route path="/" exact component={Anonymous} />
+          )}
         </Switch>
       </BrowserRouter>
 

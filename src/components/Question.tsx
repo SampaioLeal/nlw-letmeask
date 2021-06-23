@@ -3,25 +3,31 @@ import { Paper, Grid, Avatar } from "@material-ui/core";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import ChatBubbleOutlineRoundedIcon from "@material-ui/icons/ChatBubbleOutlineRounded";
 import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutlineRounded";
+import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
+import DeleteQuestionModal from "./Modals/DeleteQuestion";
 import Spacer from "./Spacer";
+import authStore from "../stores/auth";
+import appStore from "../stores/app";
+import useModal from "../hooks/useModal";
 
 interface QuestionProps {
-  selected?: boolean;
-  done?: boolean;
-
-  onDeleteClick(): void;
+  question: Question;
 }
 
 const useStyles = makeStyles((theme) => ({
   root: (props: QuestionProps) => ({
     padding: theme.spacing(3),
-    boxShadow: props.selected ? "0px 2px 12px rgba(0, 0, 0, 0.12)" : undefined,
-    borderStyle: props.selected ? "solid" : undefined,
-    borderWidth: props.selected ? 1 : undefined,
-    borderColor: props.selected ? theme.palette.primary.main : undefined,
-    background: props.done
+    boxShadow: props.question.selected
+      ? "0px 2px 12px rgba(0, 0, 0, 0.12)"
+      : undefined,
+    borderStyle: props.question.selected ? "solid" : undefined,
+    borderWidth: props.question.selected ? 1 : undefined,
+    borderColor: props.question.selected
+      ? theme.palette.primary.main
+      : undefined,
+    background: props.question.solved
       ? lighten("#000000", 0.8)
-      : props.selected
+      : props.question.selected
       ? lighten(theme.palette.primary.main, 0.9)
       : undefined,
   }),
@@ -54,42 +60,88 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Question(props: QuestionProps) {
   const classes = useStyles(props);
+  const [deleteModal, openDeleteModal, closeDeleteModal] = useModal();
+  const isAdmin = appStore.room?.adminUid === authStore.user?.uid;
+  const isLiked = authStore.user
+    ? props.question.likes.includes(authStore.user.uid)
+    : false;
+
+  function handleSolve() {
+    appStore.updateQuestion(props.question.id, {
+      solved: !props.question.solved,
+    });
+  }
+
+  function handleSelect() {
+    appStore.updateQuestion(props.question.id, {
+      selected: !props.question.selected,
+    });
+  }
+
+  function handleLike() {
+    if (!authStore.user) return;
+    const userId = authStore.user.uid;
+    const isLike = !props.question.likes.includes(userId);
+
+    appStore.toggleLikeOfQuestion(props.question.id, userId, isLike);
+  }
 
   function handleDelete() {
-    props.onDeleteClick();
+    openDeleteModal();
   }
 
   return (
-    <Paper className={classes.root}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Typography>
-            Olá, eu gostaria de saber como criar um componente funcional dentro
-            do React e se existe diferença na perfomance entre um componente com
-            classes.
-          </Typography>
-        </Grid>
-        <Grid item xs={12} className={classes.info}>
-          <Avatar className={classes.avatar}>SL</Avatar>
-          <Typography className={classes.username}>Sampaio Leal</Typography>
+    <>
+      <Paper className={classes.root}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography>{props.question.text}</Typography>
+          </Grid>
+          <Grid item xs={12} className={classes.info}>
+            <Avatar
+              className={classes.avatar}
+              alt={props.question.userName || "Foto de perfil"}
+              src={props.question.userPicture}
+            />
+            <Typography className={classes.username}>
+              {props.question.userName}
+            </Typography>
 
-          <Spacer />
-
-          <CheckCircleOutlineRoundedIcon
-            color="action"
-            className={classes.icon}
-          />
-          <ChatBubbleOutlineRoundedIcon
-            color="action"
-            className={classes.icon}
-          />
-          <DeleteOutlineRoundedIcon
-            color="action"
-            className={classes.deleteIcon}
-            onClick={handleDelete}
-          />
+            <Spacer />
+            {isAdmin ? (
+              <>
+                <CheckCircleOutlineRoundedIcon
+                  color="action"
+                  className={classes.icon}
+                  onClick={handleSolve}
+                />
+                <ChatBubbleOutlineRoundedIcon
+                  color="action"
+                  className={classes.icon}
+                  onClick={handleSelect}
+                />
+                <DeleteOutlineRoundedIcon
+                  color="action"
+                  className={classes.deleteIcon}
+                  onClick={handleDelete}
+                />
+              </>
+            ) : (
+              <ThumbUpAltOutlinedIcon
+                color={isLiked ? "primary" : "action"}
+                className={classes.icon}
+                onClick={handleLike}
+              />
+            )}
+          </Grid>
         </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+
+      <DeleteQuestionModal
+        questionId={props.question.id}
+        open={deleteModal}
+        handleClose={closeDeleteModal}
+      />
+    </>
   );
 }

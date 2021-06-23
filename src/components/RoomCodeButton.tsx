@@ -1,13 +1,17 @@
 import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
 import FilterNoneRoundedIcon from "@material-ui/icons/FilterNoneRounded";
 
+interface RoomCodeButtonProps {
+  code: string;
+}
+
 const useStyles = makeStyles((theme) => ({
   code: {
     color: theme.palette.text.primary,
   },
 }));
 
-export default function RooomCodeButton() {
+export default function RooomCodeButton({ code }: RoomCodeButtonProps) {
   const classes = useStyles();
 
   return (
@@ -19,7 +23,7 @@ export default function RooomCodeButton() {
       <Button variant="contained">
         <FilterNoneRoundedIcon />
       </Button>
-      <Button className={classes.code}>Sala #5435464</Button>
+      <Button className={classes.code}>Sala #{code}</Button>
     </ButtonGroup>
   );
 }

@@ -6,12 +6,45 @@ import SlideButton from "../components/SlideButton";
 import { useState } from "react";
 import ProfileMenu from "../components/ProfileMenu";
 import Presentation from "../components/Presentation";
+import { useEffect } from "react";
+import appStore from "../stores/app";
+import authStore from "../stores/auth";
+import { observer } from "mobx-react-lite";
+import { useHistory } from "react-router-dom";
 
-export default function Home() {
+function Home() {
   const [slideState, setSlideState] = useState<"left" | "right">("left");
+  const [room, setRoom] = useState("");
+  const history = useHistory();
   const classes = useHomeStyles();
-
   const isCreating = slideState === "left";
+
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setRoom(event.target.value.trim());
+  }
+
+  async function handleButtonClick() {
+    if (!authStore.user || !room) return;
+
+    if (isCreating) {
+      const roomData = await appStore.createRoom(
+        room.trim(),
+        authStore.user.uid
+      );
+      history.push(`/room/${roomData.code}`);
+    } else {
+      try {
+        const roomData = await appStore.checkRoom(room);
+        history.push(`/room/${roomData.code}`);
+      } catch (e) {
+        // TODO: disparar alerta
+      }
+    }
+  }
+
+  useEffect(() => {
+    setRoom("");
+  }, [slideState]);
 
   return (
     <Grid container spacing={0} className={classes.root}>
@@ -34,13 +67,20 @@ export default function Home() {
           </Typography>
 
           <RoomInput
+            value={room}
+            onChange={handleInputChange}
             className={classes.input}
             placeholder={
               isCreating ? "Nome da sala" : "Digite o código da sala"
             }
           />
 
-          <Button variant="contained" color="primary" fullWidth>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handleButtonClick}
+          >
             {isCreating ? "Criar sala" : "Entrar na sala"}
           </Button>
         </Grid>
@@ -48,3 +88,5 @@ export default function Home() {
     </Grid>
   );
 }
+
+export default observer(Home);

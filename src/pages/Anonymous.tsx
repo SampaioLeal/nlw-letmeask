@@ -1,15 +1,34 @@
 import { Grid, Box, Button } from "@material-ui/core";
-import QuestionAnswerRoundedIcon from "@material-ui/icons/QuestionAnswerRounded";
-import Divider from "../components/Divider";
+// import QuestionAnswerRoundedIcon from "@material-ui/icons/QuestionAnswerRounded";
+// import Divider from "../components/Divider";
 import GoogleIcon from "../components/GoogleIcon";
 import Logo from "../components/Logo";
-import RoomInput from "../components/RoomInput";
+// import RoomInput from "../components/RoomInput";
 import useHomeStyles from "../styles/home";
 import authStore from "../stores/auth";
 import Presentation from "../components/Presentation";
+// import { useState } from "react";
+// import appStore from "../stores/app";
+// import { useHistory } from "react-router-dom";
 
 export default function Anonymous() {
   const classes = useHomeStyles();
+  // const history = useHistory();
+  // const [room, setRoom] = useState("");
+
+  // function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+  //   setRoom(event.target.value.trim());
+  // }
+
+  // async function handleJoin() {
+  //   try {
+  //     const roomData = await appStore.checkRoom(room);
+  //     history.push(`/room/${roomData.code}`);
+  //   } catch (e) {
+  //     console.log(e);
+  //     // TODO: disparar alerta
+  //   }
+  // }
 
   return (
     <Grid container spacing={0} className={classes.root}>
@@ -32,19 +51,24 @@ export default function Anonymous() {
             Entrar com o Google
           </Button>
 
-          <Divider title="ou entre em uma sala" />
+          {/* <Divider title="ou entre em uma sala" />
 
-          <RoomInput placeholder="Digite o código da sala" />
+          <RoomInput
+            value={room}
+            onChange={handleInputChange}
+            placeholder="Digite o código da sala"
+          />
 
           <Button
             className={classes.button}
             variant="contained"
             color="primary"
             fullWidth
+            onClick={handleJoin}
           >
             <QuestionAnswerRoundedIcon />
             Entrar na sala
-          </Button>
+          </Button> */}
         </Grid>
       </Box>
     </Grid>

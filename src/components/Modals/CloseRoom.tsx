@@ -2,11 +2,6 @@ import { Dialog, Typography, Button, makeStyles } from "@material-ui/core";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import appStore from "../../stores/app";
 
-interface DeleteQuestionModalProps extends ModalProps {
-  questionId: string;
-  onDelete?(): void;
-}
-
 const useStyles = makeStyles({
   root: {
     display: "flex",
@@ -21,15 +16,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function DeleteQuestionModal({
-  questionId,
-  open,
-  handleClose,
-}: DeleteQuestionModalProps) {
+export default function CloseRoomModal({ open, handleClose }: ModalProps) {
   const classes = useStyles();
 
-  function handleDelete() {
-    appStore.deleteQuestion(questionId);
+  function handleCloseRoom() {
+    appStore.closeRoom();
     handleClose();
   }
 
@@ -37,16 +28,16 @@ export default function DeleteQuestionModal({
     <Dialog onClose={handleClose} open={open} classes={{ paper: classes.root }}>
       <DeleteOutlineRoundedIcon fontSize="large" color="secondary" />
       <Typography variant="h2" gutterBottom>
-        Excluir pergunta
+        Encerrar sala
       </Typography>
       <Typography variant="subtitle1" gutterBottom>
-        Tem certeza que você deseja excluir esta pergunta?
+        Tem certeza que você deseja encerrar esta sala?
       </Typography>
 
       <div className={classes.buttons}>
         <Button variant="contained">Cancelar</Button>
-        <Button variant="contained" color="secondary" onClick={handleDelete}>
-          Sim, excluir
+        <Button variant="contained" color="secondary" onClick={handleCloseRoom}>
+          Sim, encerrar
         </Button>
       </div>
     </Dialog>
