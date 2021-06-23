@@ -56,6 +56,7 @@ function Room() {
   const history = useHistory();
   const [active, setActive] = useState(false);
   const [question, setQuestion] = useState("");
+  const isAdmin = authStore.user?.uid === appStore.room?.adminUid;
 
   function handleSendQuestion() {
     const text = question.trim();
@@ -114,40 +115,43 @@ function Room() {
             <Typography variant="h2">Sala {appStore.room?.name}</Typography>
             <QuestionsLabel length={appStore.questions.length} />
           </Grid>
-
-          <Grid item xs={12} md={10}>
-            <TextField
-              value={question}
-              onChange={handleChangeQuestion}
-              fullWidth
-              multiline
-              rows={4}
-              variant="outlined"
-              className={classes.input}
-            />
-          </Grid>
-          <Grid item xs={12} md={10} className={classes.roomInfo}>
-            {authStore.user && (
-              <>
-                <Avatar
-                  className={classes.avatar}
-                  alt={authStore.user.displayName || "Foto de perfil"}
-                  src={authStore.user.photoURL || undefined}
+          {!isAdmin && (
+            <>
+              <Grid item xs={12} md={10}>
+                <TextField
+                  value={question}
+                  onChange={handleChangeQuestion}
+                  fullWidth
+                  multiline
+                  rows={4}
+                  variant="outlined"
+                  className={classes.input}
                 />
-                <Typography className={classes.username}>
-                  {authStore.user?.displayName}
-                </Typography>
-              </>
-            )}
-            <Spacer />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSendQuestion}
-            >
-              Enviar pergunta
-            </Button>
-          </Grid>
+              </Grid>
+              <Grid item xs={12} md={10} className={classes.roomInfo}>
+                {authStore.user && (
+                  <>
+                    <Avatar
+                      className={classes.avatar}
+                      alt={authStore.user.displayName || "Foto de perfil"}
+                      src={authStore.user.photoURL || undefined}
+                    />
+                    <Typography className={classes.username}>
+                      {authStore.user?.displayName}
+                    </Typography>
+                  </>
+                )}
+                <Spacer />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSendQuestion}
+                >
+                  Enviar pergunta
+                </Button>
+              </Grid>
+            </>
+          )}
 
           {appStore.questions.length ? (
             appStore.questions.map((question) => {
