@@ -1,32 +1,16 @@
-import {
-  makeStyles,
-  Typography,
-  Container,
-  Grid,
-  TextField,
-  Avatar,
-  Button,
-} from "@material-ui/core";
+import { makeStyles, Typography, Container, Grid } from "@material-ui/core";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import NavBar from "../components/Navbar";
 import Question from "../components/Question";
+import QuestionField from "../components/QuestionField";
 import QuestionsAndAnswers from "../components/QuestionsAndAnswers";
 import QuestionsLabel from "../components/QuestionsLabel";
-import Spacer from "../components/Spacer";
 import appStore from "../stores/app";
 import authStore from "../stores/auth";
 
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    color: theme.palette.getContrastText(theme.palette.primary.main),
-    backgroundColor: theme.palette.primary.main,
-  },
-  username: {
-    margin: 8,
-    color: "#737380",
-  },
   noQuestions: {
     display: "flex",
     flexDirection: "column",
@@ -44,10 +28,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
   },
-  input: {
-    borderRadius: theme.shape.borderRadius,
-    background: "#fff",
-  },
 }));
 
 function Room() {
@@ -55,19 +35,14 @@ function Room() {
   const params = useParams<{ code: string }>();
   const history = useHistory();
   const [active, setActive] = useState(false);
-  const [question, setQuestion] = useState("");
-  const isAdmin = authStore.user?.uid === appStore.room?.adminUid;
+  const isAdmin = appStore.room
+    ? authStore.user?.uid === appStore.room?.adminUid
+    : true;
 
-  function handleSendQuestion() {
-    const text = question.trim();
+  function handleSendQuestion(text: string) {
     if (text && authStore.user) {
-      setQuestion("");
       appStore.addQuestion(text, authStore.user);
     }
-  }
-
-  function handleChangeQuestion(event: React.ChangeEvent<HTMLInputElement>) {
-    setQuestion(event.target.value);
   }
 
   useEffect(() => {
@@ -115,43 +90,7 @@ function Room() {
             <Typography variant="h2">Sala {appStore.room?.name}</Typography>
             <QuestionsLabel length={appStore.questions.length} />
           </Grid>
-          {!isAdmin && (
-            <>
-              <Grid item xs={12} md={10}>
-                <TextField
-                  value={question}
-                  onChange={handleChangeQuestion}
-                  fullWidth
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                  className={classes.input}
-                />
-              </Grid>
-              <Grid item xs={12} md={10} className={classes.roomInfo}>
-                {authStore.user && (
-                  <>
-                    <Avatar
-                      className={classes.avatar}
-                      alt={authStore.user.displayName || "Foto de perfil"}
-                      src={authStore.user.photoURL || undefined}
-                    />
-                    <Typography className={classes.username}>
-                      {authStore.user?.displayName}
-                    </Typography>
-                  </>
-                )}
-                <Spacer />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSendQuestion}
-                >
-                  Enviar pergunta
-                </Button>
-              </Grid>
-            </>
-          )}
+          {!isAdmin && <QuestionField sendQuestion={handleSendQuestion} />}
 
           {appStore.questions.length ? (
             appStore.questions.map((question) => {
