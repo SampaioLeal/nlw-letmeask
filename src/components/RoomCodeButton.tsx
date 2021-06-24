@@ -16,7 +16,7 @@ export default function RooomCodeButton({ code }: RoomCodeButtonProps) {
   const classes = useStyles();
 
   function copyToClipboard() {
-    if (appStore.room) navigator.clipboard.writeText(appStore.room?.id);
+    if (appStore.room) navigator.clipboard.writeText(appStore.room?.code);
   }
 
   return (
