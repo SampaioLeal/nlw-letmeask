@@ -44,7 +44,9 @@ export default function DeleteQuestionModal({
       </Typography>
 
       <div className={classes.buttons}>
-        <Button variant="contained">Cancelar</Button>
+        <Button variant="contained" onClick={handleClose}>
+          Cancelar
+        </Button>
         <Button variant="contained" color="secondary" onClick={handleDelete}>
           Sim, excluir
         </Button>

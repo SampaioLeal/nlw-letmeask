@@ -35,7 +35,9 @@ export default function CloseRoomModal({ open, handleClose }: ModalProps) {
       </Typography>
 
       <div className={classes.buttons}>
-        <Button variant="contained">Cancelar</Button>
+        <Button variant="contained" onClick={handleClose}>
+          Cancelar
+        </Button>
         <Button variant="contained" color="secondary" onClick={handleCloseRoom}>
           Sim, encerrar
         </Button>
