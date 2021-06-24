@@ -90,6 +90,7 @@ function Room() {
             <Typography variant="h2">Sala {appStore.room?.name}</Typography>
             <QuestionsLabel length={appStore.questions.length} />
           </Grid>
+
           {!isAdmin && <QuestionField sendQuestion={handleSendQuestion} />}
 
           {appStore.questions.length ? (

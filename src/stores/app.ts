@@ -94,13 +94,18 @@ class AppStore {
   async addQuestion(text: string, user: User) {
     if (!this.room) return;
 
-    await firestore.collection(`rooms/${this.room.id}/questions`).add({
-      userId: user.uid,
-      userName: user.displayName,
-      userPicture: user.photoURL,
-      text,
-      likes: [],
-    });
+    await firestore
+      .collection(`rooms/${this.room.id}/questions`)
+      .add({
+        userId: user.uid,
+        userName: user.displayName,
+        userPicture: user.photoURL,
+        text,
+        likes: [],
+      })
+      .catch(() =>
+        this.setNotification("Você não tem permissão para executar esta ação!")
+      );
   }
 
   async toggleLikeOfQuestion(
