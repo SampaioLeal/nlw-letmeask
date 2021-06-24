@@ -43,7 +43,7 @@ export default function QuestionField({ sendQuestion }: QuestionFieldProps) {
 
   return (
     <>
-      <Grid item xs={12} md={10}>
+      <Grid item xs={12} sm={10}>
         <TextField
           value={question}
           onChange={handleChangeQuestion}
@@ -54,7 +54,7 @@ export default function QuestionField({ sendQuestion }: QuestionFieldProps) {
           className={classes.input}
         />
       </Grid>
-      <Grid item xs={12} md={10} className={classes.roomInfo}>
+      <Grid item xs={12} sm={10} className={classes.roomInfo}>
         {authStore.user && (
           <>
             <Avatar
