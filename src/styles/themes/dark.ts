@@ -1,18 +1,25 @@
-import { createMuiTheme } from "@material-ui/core";
+import { createMuiTheme, darken } from "@material-ui/core";
 import { Shadows } from "@material-ui/core/styles/shadows";
 
-const lightTheme = createMuiTheme({
+const darkTheme = createMuiTheme({
   shadows: Array(25).fill("none") as Shadows,
   palette: {
-    type: "light",
+    type: "dark",
+    common: {
+      white: "#d1d1d6",
+    },
     background: {
-      default: "#f8f8f8",
+      default: "#111111",
+      paper: darken("#ffffff", 0.9),
     },
     primary: {
-      main: "rgba(131, 90, 253, 1)",
+      main: "#462173",
     },
     secondary: {
       main: "#E73F5D",
+    },
+    text: {
+      primary: "#d1d1d6",
     },
   },
   typography: {
@@ -43,7 +50,7 @@ const lightTheme = createMuiTheme({
     MuiCssBaseline: {
       "@global": {
         body: {
-          backgroundColor: "#f8f8f8",
+          backgroundColor: "#111111",
         },
       },
     },
@@ -80,4 +87,4 @@ const lightTheme = createMuiTheme({
   },
 });
 
-export default lightTheme;
+export default darkTheme;

@@ -6,11 +6,17 @@ class AppStore {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
+  theme: Themes = localStorage.theme || "light";
   loading = false;
   notification = "";
   room: Room | null = null;
   questions: Question[] = [];
 
+  toggleTheme() {
+    const newTheme = this.theme === "light" ? "dark" : "light";
+    localStorage.theme = newTheme;
+    this.theme = newTheme;
+  }
   setNotification(text: string) {
     this.notification = text;
   }

@@ -32,7 +32,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   active: (props: StylesProps) => ({
-    backgroundColor: lighten(theme.palette.primary.main, 0.7),
+    backgroundColor:
+      theme.palette.type === "dark"
+        ? theme.palette.primary.main
+        : lighten(theme.palette.primary.main, 0.7),
     width: buttonWidth,
     height: 40,
     borderRadius: theme.shape.borderRadius,
@@ -45,10 +48,20 @@ const useStyles = makeStyles((theme) => ({
   }),
 
   left: (props: StylesProps) => ({
-    color: props.side === "left" ? theme.palette.primary.main : undefined,
+    color:
+      theme.palette.type === "light"
+        ? props.side === "left"
+          ? theme.palette.primary.main
+          : undefined
+        : theme.palette.common.white,
   }),
   right: (props: StylesProps) => ({
-    color: props.side === "right" ? theme.palette.primary.main : undefined,
+    color:
+      theme.palette.type === "light"
+        ? props.side === "right"
+          ? theme.palette.primary.main
+          : undefined
+        : theme.palette.common.white,
   }),
 }));
 

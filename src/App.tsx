@@ -3,9 +3,11 @@ import {
   CssBaseline,
   IconButton,
   Snackbar,
+  createMuiTheme,
 } from "@material-ui/core";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import lightTheme from "./styles/themes/light";
+import darkTheme from "./styles/themes/dark";
 import "./services/firebase";
 import authStore from "./stores/auth";
 import { observer } from "mobx-react-lite";
@@ -20,6 +22,8 @@ import CloseIcon from "@material-ui/icons/Close";
 appStore.setLoading(true);
 
 function App() {
+  const isDark = appStore.theme === "dark";
+
   useEffect(() => {
     const unsubscribe = authStore.listenAuthState();
 
@@ -29,7 +33,7 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={createMuiTheme(isDark ? darkTheme : lightTheme)}>
       <CssBaseline />
       <BrowserRouter>
         <Switch>

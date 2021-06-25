@@ -14,21 +14,23 @@ import shadows from "@material-ui/core/styles/shadows";
 import { observer } from "mobx-react-lite";
 import { useEffect, useRef, useState } from "react";
 import authStore from "../stores/auth";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const useStyles = makeStyles((theme) => ({
   button: {
     borderRadius: "50%",
-    position: "absolute",
-    top: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-  username: {
-    position: "absolute",
-    top: theme.spacing(3),
-    right: theme.spacing(10),
+    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(2),
   },
   menu: {
     boxShadow: shadows[6],
+  },
+  container: {
+    display: "flex",
+    position: "absolute",
+    alignItems: "center",
+    top: theme.spacing(2),
+    right: theme.spacing(2),
   },
 }));
 
@@ -82,23 +84,24 @@ function ProfileMenu() {
 
   return (
     <>
-      <Typography className={classes.username}>
-        {authStore.user?.displayName || "Usuário"}
-      </Typography>
-      <ButtonBase
-        ref={anchorRef}
-        onClick={handleToggle}
-        className={classes.button}
-      >
-        {authStore.user?.photoURL ? (
-          <Avatar
-            alt={authStore.user?.displayName || "Foto de perfil"}
-            src={authStore.user.photoURL}
-          />
-        ) : (
-          <Avatar>{firstChars}</Avatar>
-        )}
-      </ButtonBase>
+      <div className={classes.container}>
+        <Typography>{authStore.user?.displayName || "Usuário"}</Typography>
+        <ButtonBase
+          ref={anchorRef}
+          onClick={handleToggle}
+          className={classes.button}
+        >
+          {authStore.user?.photoURL ? (
+            <Avatar
+              alt={authStore.user?.displayName || "Foto de perfil"}
+              src={authStore.user.photoURL}
+            />
+          ) : (
+            <Avatar>{firstChars}</Avatar>
+          )}
+        </ButtonBase>
+        <ThemeSwitcher />
+      </div>
 
       <Popper
         open={open}

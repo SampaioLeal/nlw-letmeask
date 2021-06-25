@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   username: {
     margin: 8,
-    color: "#737380",
+    color: theme.palette.getContrastText(theme.palette.background.default),
   },
   roomInfo: {
     display: "flex",
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     borderRadius: theme.shape.borderRadius,
-    background: "#fff",
+    background: theme.palette.background.paper,
   },
 }));
 
