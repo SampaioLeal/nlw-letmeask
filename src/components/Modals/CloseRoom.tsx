@@ -1,6 +1,6 @@
 import { Dialog, Typography, Button, makeStyles } from "@material-ui/core";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
-import appStore from "../../stores/app";
+import roomStore from "../../stores/room";
 
 const useStyles = makeStyles({
   root: {
@@ -20,7 +20,7 @@ export default function CloseRoomModal({ open, handleClose }: ModalProps) {
   const classes = useStyles();
 
   function handleCloseRoom() {
-    appStore.closeRoom();
+    roomStore.closeRoom();
     handleClose();
   }
 

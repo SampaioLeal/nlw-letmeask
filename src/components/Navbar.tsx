@@ -8,13 +8,13 @@ import {
 } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import useModal from "../hooks/useModal";
-import appStore from "../stores/app";
-import authStore from "../stores/auth";
 import Logo from "./Logo";
 import RoomCodeButton from "./RoomCodeButton";
 import Spacer from "./Spacer";
 import CloseRoomModal from "./Modals/CloseRoom";
 import ThemeSwitcher from "./ThemeSwitcher";
+import roomStore from "../stores/room";
+import authStore from "../stores/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +35,7 @@ export default function NavBar() {
   const classes = useStyles();
   const params = useParams<{ code: string }>();
   const [shutdownModal, openShutdownModal, closeShutdownModal] = useModal();
-  const isAdmin = appStore.room?.adminUid === authStore.user?.uid;
+  const isAdmin = roomStore.room?.adminUid === authStore.user?.uid;
 
   return (
     <div className={classes.root}>

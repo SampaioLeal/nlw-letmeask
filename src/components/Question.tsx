@@ -7,8 +7,8 @@ import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import DeleteQuestionModal from "./Modals/DeleteQuestion";
 import Spacer from "./Spacer";
 import authStore from "../stores/auth";
-import appStore from "../stores/app";
 import useModal from "../hooks/useModal";
+import roomStore from "../stores/room";
 
 interface QuestionProps {
   question: Question;
@@ -61,19 +61,19 @@ const useStyles = makeStyles((theme) => ({
 export default function Question(props: QuestionProps) {
   const classes = useStyles(props);
   const [deleteModal, openDeleteModal, closeDeleteModal] = useModal();
-  const isAdmin = appStore.room?.adminUid === authStore.user?.uid;
+  const isAdmin = roomStore.room?.adminUid === authStore.user?.uid;
   const isLiked = authStore.user
     ? props.question.likes.includes(authStore.user.uid)
     : false;
 
   function handleSolve() {
-    appStore.updateQuestion(props.question.id, {
+    roomStore.updateQuestion(props.question.id, {
       solved: !props.question.solved,
     });
   }
 
   function handleSelect() {
-    appStore.updateQuestion(props.question.id, {
+    roomStore.updateQuestion(props.question.id, {
       selected: !props.question.selected,
     });
   }
@@ -83,7 +83,7 @@ export default function Question(props: QuestionProps) {
     const userId = authStore.user.uid;
     const isLike = !props.question.likes.includes(userId);
 
-    appStore.toggleLikeOfQuestion(props.question.id, userId, isLike);
+    roomStore.toggleLikeOfQuestion(props.question.id, userId, isLike);
   }
 
   function handleDelete() {

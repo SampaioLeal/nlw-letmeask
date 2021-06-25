@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
 import FilterNoneRoundedIcon from "@material-ui/icons/FilterNoneRounded";
-import appStore from "../stores/app";
+import roomStore from "../stores/room";
 
 interface RoomCodeButtonProps {
   code: string;
@@ -17,7 +17,7 @@ export default function RooomCodeButton({ code }: RoomCodeButtonProps) {
   const classes = useStyles();
 
   function copyToClipboard() {
-    if (appStore.room) navigator.clipboard.writeText(appStore.room?.code);
+    if (roomStore.room) navigator.clipboard.writeText(roomStore.room?.code);
   }
 
   return (

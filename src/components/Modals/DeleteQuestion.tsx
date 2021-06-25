@@ -1,6 +1,6 @@
 import { Dialog, Typography, Button, makeStyles } from "@material-ui/core";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
-import appStore from "../../stores/app";
+import roomStore from "../../stores/room";
 
 interface DeleteQuestionModalProps extends ModalProps {
   questionId: string;
@@ -29,7 +29,7 @@ export default function DeleteQuestionModal({
   const classes = useStyles();
 
   function handleDelete() {
-    appStore.deleteQuestion(questionId);
+    roomStore.deleteQuestion(questionId);
     handleClose();
   }
 

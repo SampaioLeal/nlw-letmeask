@@ -11,6 +11,7 @@ import appStore from "../stores/app";
 import authStore from "../stores/auth";
 import { observer } from "mobx-react-lite";
 import { useHistory } from "react-router-dom";
+import roomStore from "../stores/room";
 
 function Home() {
   const [slideState, setSlideState] = useState<"left" | "right">("left");
@@ -27,14 +28,14 @@ function Home() {
     if (!authStore.user || !room) return;
 
     if (isCreating) {
-      const roomData = await appStore.createRoom(
+      const roomData = await roomStore.createRoom(
         room.trim(),
         authStore.user.uid
       );
       history.push(`/room/${roomData.code}`);
     } else {
       try {
-        const roomData = await appStore.checkRoom(room);
+        const roomData = await roomStore.checkRoom(room);
         history.push(`/room/${roomData.code}`);
       } catch (e) {
         appStore.setNotification("A sala não existe!");

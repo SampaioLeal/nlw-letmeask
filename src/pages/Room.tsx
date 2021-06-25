@@ -7,7 +7,7 @@ import Question from "../components/Question";
 import QuestionField from "../components/QuestionField";
 import QuestionsAndAnswers from "../components/QuestionsAndAnswers";
 import QuestionsLabel from "../components/QuestionsLabel";
-import appStore from "../stores/app";
+import roomStore from "../stores/room";
 import authStore from "../stores/auth";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,13 +35,13 @@ function Room() {
   const params = useParams<{ code: string }>();
   const history = useHistory();
   const [active, setActive] = useState(false);
-  const isAdmin = appStore.room
-    ? authStore.user?.uid === appStore.room?.adminUid
+  const isAdmin = roomStore.room
+    ? authStore.user?.uid === roomStore.room?.adminUid
     : true;
 
   function handleSendQuestion(text: string) {
     if (text && authStore.user) {
-      appStore.addQuestion(text, authStore.user);
+      roomStore.addQuestion(text, authStore.user);
     }
   }
 
@@ -53,9 +53,9 @@ function Room() {
 
     async function sync() {
       try {
-        const roomData = await appStore.checkRoom(params.code);
-        unsubscribeRoom = appStore.listenRoom(roomData.id);
-        unsubscribeQuestions = appStore.listenQuestions(roomData.id);
+        const roomData = await roomStore.checkRoom(params.code);
+        unsubscribeRoom = roomStore.listenRoom(roomData.id);
+        unsubscribeQuestions = roomStore.listenQuestions(roomData.id);
       } catch (e) {
         history.push("/");
       }
@@ -70,16 +70,16 @@ function Room() {
   }, []);
 
   useEffect(() => {
-    if (appStore.room) {
+    if (roomStore.room) {
       setActive(true);
     }
-  }, [appStore.room]);
+  }, [roomStore.room]);
 
   useEffect(() => {
-    if (active && !appStore.room) {
+    if (active && !roomStore.room) {
       history.push("/");
     }
-  }, [active, appStore.room]);
+  }, [active, roomStore.room]);
 
   return (
     <>
@@ -87,14 +87,14 @@ function Room() {
       <Container>
         <Grid container spacing={2} justify="center">
           <Grid item xs={12} sm={10} className={classes.roomInfo}>
-            <Typography variant="h2">Sala {appStore.room?.name}</Typography>
-            <QuestionsLabel length={appStore.questions.length} />
+            <Typography variant="h2">Sala {roomStore.room?.name}</Typography>
+            <QuestionsLabel length={roomStore.questions.length} />
           </Grid>
 
           {!isAdmin && <QuestionField sendQuestion={handleSendQuestion} />}
 
-          {appStore.questions.length ? (
-            appStore.questions.map((question) => {
+          {roomStore.questions.length ? (
+            roomStore.questions.map((question) => {
               return (
                 <Grid key={question.id} item xs={12} sm={10}>
                   <Question question={question} />
