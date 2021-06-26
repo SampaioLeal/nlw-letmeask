@@ -23,6 +23,8 @@ This project was developed using the following technologies:
 - [React](https://reactjs.org)
 - [Firebase](https://firebase.google.com/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [MobX](https://mobx.js.org)
+- [Material-UI](https://material-ui.com)
 
 ## 🚀 Getting started
 
