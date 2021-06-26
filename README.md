@@ -25,6 +25,7 @@ This project was developed using the following technologies:
 - [TypeScript](https://www.typescriptlang.org/)
 - [MobX](https://mobx.js.org)
 - [Material-UI](https://material-ui.com)
+- [Tmi.js](https://tmijs.com/)
 
 ## 🚀 Getting started
 
