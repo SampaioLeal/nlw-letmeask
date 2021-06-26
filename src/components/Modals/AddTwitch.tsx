@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core";
 import { useState } from "react";
 import roomStore from "../../stores/room";
+import TwitchIcon from "../TwitchIcon";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,14 +16,17 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
   },
-  buttons: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-around",
-  },
   input: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
+  },
+  button: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  twitchIcon: {
+    width: theme.spacing(12),
+    height: theme.spacing(12),
   },
 }));
 
@@ -43,6 +47,8 @@ export default function AddTwitchModal({ open, handleClose }: ModalProps) {
 
   return (
     <Dialog onClose={handleClose} open={open} classes={{ paper: classes.root }}>
+      <TwitchIcon className={classes.twitchIcon} />
+
       <Typography variant="h2" gutterBottom>
         Adicionar Twitch
       </Typography>
@@ -61,11 +67,20 @@ export default function AddTwitchModal({ open, handleClose }: ModalProps) {
         onChange={handleChange}
       />
 
-      <div className={classes.buttons}>
-        <Button variant="contained" onClick={handleClose}>
+      <div>
+        <Button
+          className={classes.button}
+          variant="contained"
+          onClick={handleClose}
+        >
           Cancelar
         </Button>
-        <Button variant="contained" color="primary" onClick={handleAddTwitch}>
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={handleAddTwitch}
+        >
           Adicionar
         </Button>
       </div>

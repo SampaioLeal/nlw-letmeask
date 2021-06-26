@@ -52,15 +52,17 @@ export default function NavBar() {
 
             <Spacer />
 
-            <Button
-              className={classes.twitchBtn}
-              variant="contained"
-              color="primary"
-              size="small"
-              onClick={openTwitchModal}
-            >
-              <TwitchIcon />
-            </Button>
+            {isAdmin && (
+              <Button
+                className={classes.twitchBtn}
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={openTwitchModal}
+              >
+                <TwitchIcon />
+              </Button>
+            )}
 
             <RoomCodeButton code={params.code} />
 
