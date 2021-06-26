@@ -1,4 +1,10 @@
-import { lighten, makeStyles, Typography } from "@material-ui/core";
+import {
+  darken,
+  lighten,
+  makeStyles,
+  Theme,
+  Typography,
+} from "@material-ui/core";
 import { Paper, Grid, Avatar } from "@material-ui/core";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import ChatBubbleOutlineRoundedIcon from "@material-ui/icons/ChatBubbleOutlineRounded";
@@ -14,6 +20,22 @@ interface QuestionProps {
   question: Question;
 }
 
+function getSolvedColor(theme: Theme) {
+  if (theme.palette.type === "dark") {
+    return darken("#ffffff", 0.8);
+  } else {
+    return lighten("#000000", 0.8);
+  }
+}
+
+function getSelectedColor(theme: Theme) {
+  if (theme.palette.type === "dark") {
+    return darken("#ffffff", 0.86);
+  } else {
+    return lighten(theme.palette.primary.main, 0.9);
+  }
+}
+
 const useStyles = makeStyles((theme) => ({
   root: (props: QuestionProps) => ({
     padding: theme.spacing(3),
@@ -26,9 +48,9 @@ const useStyles = makeStyles((theme) => ({
       ? theme.palette.primary.main
       : undefined,
     background: props.question.solved
-      ? lighten("#000000", 0.8)
+      ? getSolvedColor(theme)
       : props.question.selected
-      ? lighten(theme.palette.primary.main, 0.9)
+      ? getSelectedColor(theme)
       : undefined,
   }),
   info: {
