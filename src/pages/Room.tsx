@@ -9,6 +9,7 @@ import QuestionsAndAnswers from "../components/QuestionsAndAnswers";
 import QuestionsLabel from "../components/QuestionsLabel";
 import roomStore from "../stores/room";
 import authStore from "../stores/auth";
+import tmi from "tmi.js";
 
 const useStyles = makeStyles((theme) => ({
   noQuestions: {
@@ -48,6 +49,7 @@ function Room() {
   useEffect(() => {
     if (!params.code) history.push("/");
 
+    let twitchClient: tmi.Client;
     let unsubscribeRoom: () => void;
     let unsubscribeQuestions: () => void;
 
@@ -56,6 +58,25 @@ function Room() {
         const roomData = await roomStore.checkRoom(params.code);
         unsubscribeRoom = roomStore.listenRoom(roomData.id);
         unsubscribeQuestions = roomStore.listenQuestions(roomData.id);
+
+        if (roomData.twitch) {
+          twitchClient = new tmi.Client({
+            channels: [roomData.twitch],
+          });
+
+          twitchClient.connect();
+
+          twitchClient.on("message", (channel, tags, message) => {
+            if (message.includes("#letmeask"))
+              roomStore.addQuestion(message, {
+                displayName: tags["display-name"] || "",
+                uid: tags["user-id"] || "",
+                email: "",
+                emailVerified: true,
+                photoURL: "",
+              });
+          });
+        }
       } catch (e) {
         history.push("/");
       }
@@ -66,6 +87,7 @@ function Room() {
     return () => {
       unsubscribeRoom && unsubscribeRoom();
       unsubscribeQuestions && unsubscribeQuestions();
+      twitchClient && twitchClient.disconnect();
     };
   }, []);
 

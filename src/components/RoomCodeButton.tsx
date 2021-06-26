@@ -9,7 +9,8 @@ interface RoomCodeButtonProps {
 const useStyles = makeStyles((theme) => ({
   code: {
     color: theme.palette.text.primary,
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
   },
 }));
 

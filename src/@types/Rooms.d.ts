@@ -3,6 +3,7 @@ interface Room {
   code: string;
   id: string;
   name: string;
+  twitch: string | null;
 }
 
 interface Question {

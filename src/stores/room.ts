@@ -85,6 +85,7 @@ class RoomStore {
         userPicture: user.photoURL,
         text,
         likes: [],
+        twitch: null,
       })
       .catch(() =>
         appStore.setNotification(
@@ -152,6 +153,12 @@ class RoomStore {
 
         this.setQuestions(newQuestions);
       });
+  }
+
+  addTwitch(channel: string, roomId: string) {
+    return firestore.doc(`rooms/${roomId}`).update({
+      twitch: channel,
+    });
   }
 }
 

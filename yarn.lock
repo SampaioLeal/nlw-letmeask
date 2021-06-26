@@ -2286,6 +2286,11 @@
   dependencies:
     "@types/jest" "*"
 
+"@types/tmi.js@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@types/tmi.js/-/tmi.js-1.7.1.tgz#d45b1eb2506fa7e0e173cd3a1317c018f9ee7d1a"
+  integrity sha512-sZ/4WlCFSKIp6sPwRMpBlSvARXMaBzIQuxLQL4v+Ymga3LiH+Xw6WuPN5odkNWDmjPVoLqSwEuCCVsFjM4c7Ug==
+
 "@types/uglify-js@*":
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/@types/uglify-js/-/uglify-js-3.12.0.tgz#2bb061c269441620d46b946350c8f16d52ef37c5"
@@ -8301,7 +8306,7 @@ no-case@^3.0.4:
     lower-case "^2.0.2"
     tslib "^2.0.3"
 
-node-fetch@2.6.1:
+node-fetch@2.6.1, node-fetch@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
@@ -11578,6 +11583,14 @@ tiny-warning@^1.0.0, tiny-warning@^1.0.2, tiny-warning@^1.0.3:
   resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
   integrity sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==
 
+tmi.js@^1.8.3:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/tmi.js/-/tmi.js-1.8.3.tgz#1a4e30c845442505e6f673d0da8740bbd39c4ed6"
+  integrity sha512-1YAO3hwnkpAbUfVlpxcqOHP4Nun/+TqxWE/e/ZKMB6p40ZKczhI03oZW2Qx3pppqWjXz5kSjHdT/vTTfi2gCGQ==
+  dependencies:
+    node-fetch "^2.6.1"
+    ws "^7.4.3"
+
 tmpl@1.0.x:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.4.tgz#23640dd7b42d00433911140820e5cf440e521dd1"
@@ -12513,6 +12526,11 @@ ws@^7.2.3:
   version "7.4.3"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.3.tgz#1f9643de34a543b8edb124bdcbc457ae55a6e5cd"
   integrity sha512-hr6vCR76GsossIRsr8OLR9acVVm1jyfEWvhbNjtgPOrfvAlKzvyeg/P6r8RuDjRyrcQoPQT7K0DGEPc7Ae6jzA==
+
+ws@^7.4.3:
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.0.tgz#0033bafea031fb9df041b2026fc72a571ca44691"
+  integrity sha512-6ezXvzOZupqKj4jUqbQ9tXuJNo+BR2gU8fFRk3XCP3e0G6WT414u5ELe6Y0vtp7kmSJ3F7YWObSNr1ESsgi4vw==
 
 xml-name-validator@^3.0.0:
   version "3.0.0"
