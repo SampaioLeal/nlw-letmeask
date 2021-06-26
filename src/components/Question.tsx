@@ -56,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.getContrastText(theme.palette.primary.main),
     backgroundColor: theme.palette.primary.main,
   },
+  likes: {
+    marginRight: theme.spacing(2),
+  },
 }));
 
 export default function Question(props: QuestionProps) {
@@ -108,6 +111,9 @@ export default function Question(props: QuestionProps) {
             </Typography>
 
             <Spacer />
+            <Typography className={classes.likes}>
+              {props.question.likes.length}
+            </Typography>
             {isAdmin ? (
               <>
                 <CheckCircleOutlineRoundedIcon
