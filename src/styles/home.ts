@@ -36,6 +36,13 @@ const useHomeStyles = makeStyles((theme) => ({
   action: {
     margin: "16px 0",
   },
+  menuContainer: {
+    display: "flex",
+    position: "absolute",
+    alignItems: "center",
+    top: theme.spacing(2),
+    right: theme.spacing(2),
+  },
 }));
 
 export default useHomeStyles;

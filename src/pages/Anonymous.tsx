@@ -4,6 +4,7 @@ import Logo from "../components/Logo";
 import useHomeStyles from "../styles/home";
 import authStore from "../stores/auth";
 import Presentation from "../components/Presentation";
+import ThemeSwitcher from "../components/ThemeSwitcher";
 
 export default function Anonymous() {
   const classes = useHomeStyles();
@@ -18,6 +19,10 @@ export default function Anonymous() {
 
       <Box clone order={{ xs: 1, sm: 1, md: 2 }}>
         <Grid xs={12} item md={6} className={classes.joinRoom}>
+          <div className={classes.menuContainer}>
+            <ThemeSwitcher />
+          </div>
+
           <Logo verticalMargin />
 
           <Button
