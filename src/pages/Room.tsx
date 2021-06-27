@@ -9,7 +9,7 @@ import QuestionsAndAnswers from "../components/QuestionsAndAnswers";
 import QuestionsLabel from "../components/QuestionsLabel";
 import roomStore from "../stores/room";
 import authStore from "../stores/auth";
-import tmi from "tmi.js";
+import { Client } from "tmi.js";
 
 const useStyles = makeStyles((theme) => ({
   noQuestions: {
@@ -44,27 +44,6 @@ function Room() {
     if (text && authStore.user) {
       roomStore.addQuestion(text, authStore.user);
     }
-  }
-
-  function listenTwitch(channel: string) {
-    const twitchClient = new tmi.Client({
-      channels: [channel],
-    });
-
-    twitchClient.connect();
-
-    twitchClient.on("message", (channel, tags, message) => {
-      if (message.includes("#letmeask"))
-        roomStore.addQuestion(message, {
-          displayName: tags["display-name"] || "",
-          uid: tags["user-id"] || "",
-          email: "",
-          emailVerified: true,
-          photoURL: "",
-        });
-    });
-
-    return twitchClient;
   }
 
   useEffect(() => {
@@ -104,10 +83,10 @@ function Room() {
   }, [active, roomStore.room]);
 
   useEffect(() => {
-    let twitchListener: tmi.Client;
+    let twitchListener: Client;
 
     if (roomStore.room?.twitch) {
-      twitchListener = listenTwitch(roomStore.room?.twitch);
+      twitchListener = roomStore.listenTwitch(roomStore.room?.twitch);
     }
 
     return () => {

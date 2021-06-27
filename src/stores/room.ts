@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { firebase, firestore } from "../services/firebase";
 import appStore from "./app";
+import tmi from "tmi.js";
 
 class RoomStore {
   constructor() {
@@ -85,7 +86,6 @@ class RoomStore {
         userPicture: user.photoURL,
         text,
         likes: [],
-        twitch: null,
       })
       .catch(() =>
         appStore.setNotification(
@@ -159,6 +159,43 @@ class RoomStore {
     return firestore.doc(`rooms/${roomId}`).update({
       twitch: channel,
     });
+  }
+
+  listenTwitch(channel: string) {
+    const twitchClient = new tmi.Client({
+      channels: [channel],
+    });
+
+    twitchClient.connect();
+
+    twitchClient.on("message", async (channel, tags, message) => {
+      if (
+        tags["reply-parent-msg-body"]?.includes("#letmeask") &&
+        message.includes("#up")
+      ) {
+        const userId = tags["user-id"] || "";
+        const questionsQuery = await firestore
+          .collection(`rooms/${roomStore.room?.id}/questions`)
+          .where("text", "==", tags["reply-parent-msg-body"])
+          .get();
+        const question = questionsQuery.docs[0];
+
+        const isLike = !question.data().likes.includes(userId);
+
+        if (isLike) roomStore.toggleLikeOfQuestion(question.id, userId, isLike);
+      }
+
+      if (message.includes("#letmeask"))
+        roomStore.addQuestion(message, {
+          displayName: tags["display-name"] || "",
+          uid: tags["user-id"] || "",
+          email: "",
+          emailVerified: true,
+          photoURL: "",
+        });
+    });
+
+    return twitchClient;
   }
 }
 
